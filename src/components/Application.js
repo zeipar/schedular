@@ -19,30 +19,28 @@ export default function Application(props) {
   });
 
   const setDay = day => {
-    setState({ ...state, day});
+    setState({ ...state, day });
   };
 
-  useEffect(() =>{
+  useEffect(() => {
 
     Promise.all([
       Promise.resolve(axios.get('/api/days')),
       Promise.resolve(axios.get('/api/appointments')),
       Promise.resolve(axios.get('/api/interviewers'))
     ]).then((all) => {
-      setState(prev => ({days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
+      setState(prev => ({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
 
   }, [])
 
-  console.log(state.interviewers);
-
   const times = getAppointmentsForDay(state, state.day).map(appointment => {
     const interview = getInterview(state, appointment.interview);
     return (
-      <Appointment key={appointment.id} interview={interview} {...appointment} />
+      <Appointment key={appointment.id} {...appointment} interview={interview} />
     );
   });
-  
+
   return (
     <main className="layout">
       <section className="sidebar">
