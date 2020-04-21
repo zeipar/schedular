@@ -23,7 +23,6 @@ export default function Application(props) {
   };
 
   function bookInterview(id, interview) {
-    console.log(id, interview);
 
     const appointment = {
       ...state.appointments[id],
@@ -34,6 +33,11 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
+
+    setState({
+      ...state, appointments
+    })
+
   }
 
   useEffect(() => {
@@ -51,8 +55,9 @@ export default function Application(props) {
   const times = getAppointmentsForDay(state, state.day).map(appointment => {
     const interview = getInterview(state, appointment.interview);
     const interviewers = getInterviewersForDay(state, state.day);
+
     return (
-      <Appointment key={appointment.id} {...appointment} interview={interview} interviewers={interviewers} bookInterview={bookInterview}/>
+      <Appointment key={appointment.id} {...appointment} interview={interview} interviewers={interviewers} bookInterview={bookInterview} />
     );
   });
 

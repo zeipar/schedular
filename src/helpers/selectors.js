@@ -9,13 +9,8 @@ export function getAppointmentsForDay(state, day) {
   };
 
   const filteredAppArr = [];
-
   for (const el of filteredDays[0].appointments) {
-    for (const appointment in state.appointments) {
-      if (el === state.appointments[appointment].id) {
-        filteredAppArr.push(state.appointments[appointment]);
-      }
-    }
+    filteredAppArr.push(state.appointments[el]);
   }
   return filteredAppArr;
 }
@@ -31,9 +26,8 @@ export function getInterviewersForDay(state, day) {
   };
 
   const filteredInterviewersArr = [];
-
   for (const el of filteredDays[0].interviewers) {
-    filteredInterviewersArr.push(el);
+    filteredInterviewersArr.push(state.interviewers[el]);
   }
 
   return filteredInterviewersArr;
