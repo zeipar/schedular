@@ -34,10 +34,15 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    setState({
-      ...state, appointments
-    })
+    axios.put(`/api/appointments/${id}`, appointment)
+      .then(
+        setState({
+          ...state, appointments
+        })
+      )
+      .catch(err => console.error(err));
 
+    axios.get('/api/debug/reset');
   }
 
   useEffect(() => {

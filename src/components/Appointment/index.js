@@ -5,10 +5,12 @@ import Show from './Show';
 import Empty from './Empty';
 import useVisualMode from "hooks/useVisualMode";
 import Form from './Form';
+import Status from './Status';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 
 export default function Appointment(props) {
@@ -17,12 +19,16 @@ export default function Appointment(props) {
   );
 
   function save(name, interviewer) {
+    transition("SAVING");
     const interview = {
       student: name,
       interviewer
     };
-    props.bookInterview(props.id, interview);
-    transition("SHOW");
+    Promise.resolve(props.bookInterview(props.id, interview))
+      .then(transition("SHOW"))
+      .catch(err => console.error(err));
+
+
   }
 
   return (
@@ -41,9 +47,10 @@ export default function Appointment(props) {
           onCancel={() => back()}
           save={save}
         />
-      )
-
-      }
+      )}
+      {mode === SAVING && (
+        <Status />
+      )}
     </Fragment>
   )
 }
