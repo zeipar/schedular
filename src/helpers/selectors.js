@@ -20,7 +20,7 @@ export function getAppointmentsForDay(state, day) {
   return filteredAppArr;
 }
 
-export function getInterviewersByDay(state, day) {
+export function getInterviewersForDay(state, day) {
   if (state.days.length === 0) {
     return [];
   }
@@ -30,35 +30,18 @@ export function getInterviewersByDay(state, day) {
     return [];
   };
 
-  const filteredAppArr = [];
+  const filteredInterviewersArr = [];
 
-  for (const el of filteredDays[0].appointments) {
-    for (const appointment in state.appointments) {
-      if (el === state.appointments[appointment].id) {
-        filteredAppArr.push(state.appointments[appointment]);
-      }
-    }
+  for (const el of filteredDays[0].interviewers) {
+    filteredInterviewersArr.push(el);
   }
-  return filteredAppArr;
+
+  return filteredInterviewersArr;
 }
 
 
 export function getInterview(state, interview) {
   const interViewData = {};
-
-  // this is for local testing of this function
-  state.interviewers = {
-    "1": {  
-      "id": 1,
-      "name": "Sylvia Palmer",
-      "avatar": "https://i.imgur.com/LpaY82x.png"
-    },
-    "2": {
-      id: 2,
-      name: "Tori Malcolm",
-      avatar: "https://i.imgur.com/Nmx0Qxo.png"
-    }
-  }
 
   if (!interview) {
     return null;
