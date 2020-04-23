@@ -15,22 +15,16 @@ export function getAppointmentsForDay(state, day) {
   return filteredAppArr;
 }
 
-export function getInterviewersForDay(state, day) {
+export function getInterviewersForDay(state, theDay) {
   if (state.days.length === 0) {
     return [];
   }
 
-  const filteredDays = state.days.filter(item => item.name === day);
-  if (filteredDays.length === 0) {
-    return [];
-  };
+  const filteredDays = state.days.filter(day => day.name === theDay);
 
-  const filteredInterviewersArr = [];
-  for (const el of filteredDays[0].interviewers) {
-    filteredInterviewersArr.push(state.interviewers[el]);
-  }
+  return (filteredDays.length === 0 ? [] : filteredDays[0].interviewers.map(interviewId => 
+    state.interviewers[interviewId]));
 
-  return filteredInterviewersArr;
 }
 
 
