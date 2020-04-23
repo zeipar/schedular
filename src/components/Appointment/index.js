@@ -14,6 +14,7 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
 
 
 export default function Appointment(props) {
@@ -26,45 +27,41 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition("SAVING");
+    transition(SAVING);
     props.bookInterview(props.id, interview)
       .then(() => {
-        transition("SHOW")
+        transition(SHOW)
       })
       .catch(err => console.error(err));
 
   };
-
-  const confirm = () => {
-    transition("CONFIRM");
-  }
 
   const remove = () => {
-    transition("DELETING");
+    transition(DELETING, true);
     props.cancelInterview(props.id)
       .then(() => {
-        transition("EMPTY")
+        transition(EMPTY)
       })
       .catch(err => console.error(err));
   };
-
 
   return (
     <Fragment>
       <Header time={props.time} />
-      {mode === EMPTY && <Empty onAdd={() => transition('CREATE')} />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onDelete={confirm}
+          onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && (
         <Form
           interviewers={props.interviewers}
           onCancel={() => back()}
-          save={save}
+          onSave={(name, interviewer) => save(name, interviewer)}
         />
       )}
       {mode === SAVING && (
@@ -77,8 +74,17 @@ export default function Appointment(props) {
         <Confirm
           message="Are you sure you would like to delete?"
           onCancel={() => back()}
-          onConfirm={remove}
+          onConfirm={() => remove()}
         />
+      )}
+      {mode === EDIT && (
+        <Form
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onSave={(name, interviewer) => save(name, interviewer)}
+          onCancel={() => back()}
+        />)}
       )}
     </Fragment>
   )
