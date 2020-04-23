@@ -33,7 +33,7 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    console.log(appointment);
+
     return (
       axios.put(`/api/appointments/${id}`, appointment)
         .then(() => {
@@ -41,7 +41,6 @@ export default function Application(props) {
             ...state, appointments
           })
         })
-        .catch(err => console.error(err))
     )
 
   }
@@ -52,14 +51,12 @@ export default function Application(props) {
       ...state.appointments[id],
       interview: null
     };
-    console.log(state.appointments);
 
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-    console.log(appointment);
-    console.log(appointments);
+
     return (
       axios.delete(`/api/appointments/${id}`, appointment)
         .then(() => {
@@ -67,7 +64,6 @@ export default function Application(props) {
             ...state, appointments
           })
         })
-        .catch(err => console.error(err))
     )
 
   }
