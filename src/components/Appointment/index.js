@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { article } from 'react';
 import './styles.scss';
 import Header from './Header';
 import Show from './Show';
@@ -53,7 +53,7 @@ export default function Appointment(props) {
   };
 
   return (
-    <Fragment>
+    <article data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && props.interview && (
@@ -94,12 +94,12 @@ export default function Appointment(props) {
         />)
       }
       {mode === ERROR_SAVE && (
-        <Error message="Failed to save" onClose={() => back()}/>
+        <Error message="Failed to save" onClose={() => back()} />
       )
       }
       {mode === ERROR_DELETE && (
-        <Error message="Failed to delete" onClose={() => back()}/>
+        <Error message="Failed to delete" onClose={() => back()} />
       )}
-    </Fragment>
+    </article>
   )
 }
