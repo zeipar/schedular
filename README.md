@@ -22,19 +22,27 @@ Along with React, these important development skills are addressed:
 
 - A user can book an interview in an empty appointment slot, by typing in a student name and clicking on an interviewer from a list of available interviewers.
 
-- A user can cancel/edit an existing interview.
+!["Saving an Appointment"](https://github.com/zeipar/schedular/blob/ba29d96f8a50a68394371fd35d5b23f210afd633/docs/Save.gif)
 
 - The list of days informs the user how many slots are available for each day.
 
 - The expected day updates the number of spots available when an interview is booked or canceled.
 
-- A user is presented with a confirmation when they attempt to cancel an interview.
+- A user can cancel/edit an existing interview.
 
-- A user is shown an error if an interview cannot be saved or deleted.
+!["Editing an Appointment"](https://github.com/zeipar/schedular/blob/ba29d96f8a50a68394371fd35d5b23f210afd633/docs/Edit.gif)
+
 
 - A user is shown a status indicator while asynchronous operations are in progress.
 
+- A user is shown an error if an interview cannot be saved or deleted.
+
 - When the user presses the close button of the error they are returned to the Form or Show view (skipping Status and Confirm).
+
+!["Deleting an Appointment"](https://github.com/zeipar/schedular/blob/ba29d96f8a50a68394371fd35d5b23f210afd633/docs/Delete.gif)
+
+- A user is presented with a confirmation when they attempt to cancel an interview.
+
 
 - The application makes API requests to load and persist data. We do not lose data after a browser refresh.
 
